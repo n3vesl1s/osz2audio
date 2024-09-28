@@ -1,1 +1,1 @@
-create folder 'input' and drop .osz into this folder
+drop your .osz's in "input" folder
