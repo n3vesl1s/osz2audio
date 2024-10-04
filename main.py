@@ -1,16 +1,18 @@
 import zipfile
 import os
 
-audio = 'audio.mp3'
-
 for root, dirs, files, in os.walk('input'):
     for file in files:
         if file.endswith('.osz'):
-            os.makedirs(os.path.join(file))
+            oszFilePath = os.path.join(root, file)
+            oszFile = os.path.join(file)
             with zipfile.ZipFile(os.path.join(root, file)) as zf:
-                for name in zf.namelist():
-                    if audio in zf.namelist():
-                        zf.extract(audio, os.path.join(file))
-                    else:
-                        zf.extract('audio.ogg', os.path.join(file))
-            os.remove(os.path.join(root, file))
+                for file in zf.namelist():
+                    if file[-4:] == ".mp3" or file[-4:] == ".ogg":
+                        neededFiles = []
+                        neededFiles.append(file)
+                        print(neededFiles)
+                        zf.extract(''.join(neededFiles), oszFile);
+            os.remove(oszFilePath)
+        else:
+            print('No .osz files found')
